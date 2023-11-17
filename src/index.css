@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --base-rotation: 40;
+  --base-rotateY: 20; /* 기본 rotateY 값 (deg) */
+  --base-translateZ: 288; /* 기본 translateZ 값 (px) */
+  --rotateY-step: -5; /* 각 아이템마다 감소할 rotateY 값 (deg) */
+  --translateZ-step: -10; /* 각 아이템마다 감소할 translateZ 값 (px) */
 }
 
 * {
@@ -29,12 +32,12 @@
 }
 
 .item {
+  /* 공통 스타일 */
   position: absolute;
   top: 0;
   left: 0;
-
-  width: 210px;
-  height: 150px;
+  width: 150px;
+  height: 210px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,6 +45,14 @@
   color: #fff;
   font-size: 32px;
   font-weight: 600;
+
+  /* 부드러운 전환 효과 추가 */
+  transition: all 0.3s ease;
+}
+
+.item:hover {
+  top: -30px;
+  transition: all 0.3s ease; /* 부드러운 전환 효과 */
 }
 
 .item:nth-child(1) {

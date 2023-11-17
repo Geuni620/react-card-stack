@@ -26,22 +26,43 @@ function App() {
 
   return (
     <div className="scene">
-      <div
-        className="carousel"
-        style={{ transform: `rotateY(${rotation}deg)` }}
-      >
-        <div className="item">1</div>
-        <div className="item">2</div>
-        <div className="item">3</div>
-        <div className="item">4</div>
-        <div className="item">5</div>
-        <div className="item">6</div>
-        <div className="item">7</div>
-        <div className="item">8</div>
-        <div className="item">9</div>
+      <div className="carousel">
+        {MockingItemData.map(({ id }) => (
+          <div className="item hover:top-[-30px]">{id}</div>
+        ))}
       </div>
     </div>
   );
 }
 
 export default App;
+
+const MockingItemData = [
+  {
+    id: 1,
+  },
+  {
+    id: 2,
+  },
+  {
+    id: 3,
+  },
+  {
+    id: 4,
+  },
+  {
+    id: 5,
+  },
+  {
+    id: 6,
+  },
+  {
+    id: 7,
+  },
+  {
+    id: 8,
+  },
+  {
+    id: 19,
+  },
+];
