@@ -1,47 +1,34 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function App() {
-  const [rotation, setRotation] = useState(0);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  const handleScroll = () => {
-    console.log('scroll 동작');
-    // 스크롤 방향을 확인하기 위해 현재 스크롤 위치와 이전 스크롤 위치를 비교합니다.
-    const scrollY = window.scrollY;
-    const direction = scrollY > lastScrollY ? 1 : -1;
-
-    // 스크롤 방향에 따라 회전 각도를 업데이트합니다.
-    setRotation((prev) => prev + direction * 0.1);
-    // 현재 스크롤 위치를 이전 스크롤 위치로 업데이트합니다.
-    setLastScrollY(scrollY);
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [lastScrollY]);
+  const [hoveredItemId, setHoveredItemId] = useState<null | number>(null);
 
   return (
     <div className="scene">
       <div className="carousel">
-        {MockingItemData.map(({ id }, index) => (
-          <div
-            className="item"
-            data-translatez={300 - 120 * index}
-            style={{
-              top: `${100 - 80 * index}px`,
-              backgroundColor: id % 2 === 0 ? '#ff7979' : '#bfa75b', // 색상 예시
-              transform: `rotateY(${20 - 5 * index}deg) translateZ(${
-                500 - 300 * index
-              }px)`,
-            }}
-          >
-            {id}
-          </div>
-        ))}
+        {MockingItemData.map(({ id }, index) => {
+          const isHovered = hoveredItemId === id;
+          const topValue = isHovered
+            ? `${50 - 80 * index - 30}px`
+            : `${200 - 80 * index}px`;
+          const rotateYValue = `${20 - 5 * index}deg`;
+          const translateZValue = `${500 - 300 * index}px`;
+
+          return (
+            <div
+              className="item"
+              onMouseEnter={() => setHoveredItemId(id)}
+              onMouseLeave={() => setHoveredItemId(null)}
+              style={{
+                top: topValue,
+                backgroundColor: id % 2 === 0 ? '#ff7979' : '#bfa75b',
+                transform: `rotateY(${rotateYValue}) translateZ(${translateZValue})`,
+              }}
+            >
+              {id}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
