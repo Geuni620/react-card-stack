@@ -27,8 +27,20 @@ function App() {
   return (
     <div className="scene">
       <div className="carousel">
-        {MockingItemData.map(({ id }) => (
-          <div className="item hover:top-[-30px]">{id}</div>
+        {MockingItemData.map(({ id }, index) => (
+          <div
+            className="item"
+            data-translatez={300 - 120 * index}
+            style={{
+              top: `${100 - 80 * index}px`,
+              backgroundColor: id % 2 === 0 ? '#ff7979' : '#bfa75b', // 색상 예시
+              transform: `rotateY(${20 - 5 * index}deg) translateZ(${
+                500 - 300 * index
+              }px)`,
+            }}
+          >
+            {id}
+          </div>
         ))}
       </div>
     </div>

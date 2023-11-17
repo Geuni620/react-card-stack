@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --base-rotateY: 20; /* 기본 rotateY 값 (deg) */
-  --base-translateZ: 288; /* 기본 translateZ 값 (px) */
-  --rotateY-step: -5; /* 각 아이템마다 감소할 rotateY 값 (deg) */
-  --translateZ-step: -10; /* 각 아이템마다 감소할 translateZ 값 (px) */
+  --base-rotateY: 20deg; /* rotateY의 초기 값 */
+  --base-translateZ: 300px; /* translateZ의 초기 값 */
+  --translateZ-step: 120px; /* 각 아이템마다 감소할 translateZ 값 */
+  --rotateY-step: 0deg; /* 각 아이템마다 감소할 rotateY 값 */
 }
 
 * {
@@ -48,46 +48,4 @@
 
   /* 부드러운 전환 효과 추가 */
   transition: all 0.3s ease;
-}
-
-.item:hover {
-  top: -30px;
-  transition: all 0.3s ease; /* 부드러운 전환 효과 */
-}
-
-.item:nth-child(1) {
-  background-color: #ff7979;
-  transform: rotateY(20deg) translateZ(300px);
-}
-.item:nth-child(2) {
-  background-color: #bfa75b;
-  transform: rotateY(15deg) translateZ(280px);
-}
-.item:nth-child(3) {
-  background-color: #4050ab;
-  transform: rotateY(10deg) translateZ(260px);
-}
-.item:nth-child(4) {
-  background-color: #a79f3d;
-  transform: rotateY(5deg) translateZ(240px);
-}
-.item:nth-child(5) {
-  background-color: #e4f92a;
-  transform: rotateY(0deg) translateZ(220px);
-}
-.item:nth-child(6) {
-  background-color: #a6fba6;
-  transform: rotateY(-5deg) translateZ(200px);
-}
-.item:nth-child(7) {
-  background-color: #b4e057;
-  transform: rotateY(-10deg) translateZ(180px);
-}
-.item:nth-child(8) {
-  background-color: #d0fe4c;
-  transform: rotateY(-15deg) translateZ(160px);
-}
-.item:nth-child(9) {
-  background-color: #20a991;
-  transform: rotateY(-20deg) translateZ(140px);
 }
