@@ -11,18 +11,23 @@ function App() {
         <div
           className="absolute right-1/2 top-0 h-screen w-1/2 overflow-hidden"
           style={{
-            transform: isHoveredShowCard
-              ? 'translate3d(0px, 0px, 0px) scale(0.16, 1.15)'
-              : 'translate3d(0px, 0px, 0px) scale(0, 1.15)',
+            transformOrigin: 'center top',
+            transform: isHoveredShowCard ? 'scale(1, 1.15)' : 'scale(0, 1.15)',
             touchAction: 'pan-y',
             transition: 'transform 0.5s ease-in-out',
             backgroundColor: 'red',
+            borderRadius: isHoveredShowCard
+              ? '50% 50% 0% 0% / 50% 50% 0% 0%'
+              : '50% 50% 50% 50% / 50% 50% 50% 50%', // 타원형에서 원 모양으로 변형
           }}
         >
           <div
             className="bg-red-500"
             style={{
-              transform: 'translate3d(0px, 0px, 0px) scale(0, 1.15)',
+              transformOrigin: 'center top',
+              transform: isHoveredShowCard
+                ? 'scale(0, 1.15)'
+                : 'scale(1, 1.15)',
               touchAction: 'pan-y',
             }}
           />
@@ -32,18 +37,23 @@ function App() {
         <div
           className="absolute left-1/2 top-0 h-screen w-1/2 overflow-hidden"
           style={{
-            transform: isHoveredNextCard
-              ? 'translate3d(0px, 0px, 0px) scale(0.16, 1.15)'
-              : 'translate3d(0px, 0px, 0px) scale(0, 1.15)',
+            transformOrigin: 'center top',
+            transform: isHoveredNextCard ? 'scale(1, 1.15)' : 'scale(0, 1.15)',
             touchAction: 'pan-y',
             transition: 'transform 0.5s ease-in-out',
             backgroundColor: 'red',
+            borderRadius: isHoveredNextCard
+              ? '50% 50% 0% 0% / 50% 50% 0% 0%'
+              : '50% 50% 50% 50% / 50% 50% 50% 50%', // 타원형에서 원 모양으로 변형
           }}
         >
           <div
             className="bg-red-500"
             style={{
-              transform: 'translate3d(0px, 0px, 0px) scale(0, 1.15)',
+              transformOrigin: 'center top',
+              transform: isHoveredNextCard
+                ? 'scale(0, 1.15)'
+                : 'scale(1, 1.15)',
               touchAction: 'pan-y',
             }}
           />
