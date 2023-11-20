@@ -2,43 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --base-rotateY: 20deg; /* rotateY의 초기 값 */
-  --base-translateZ: 300px; /* translateZ의 초기 값 */
-  --translateZ-step: 120px; /* 각 아이템마다 감소할 translateZ 값 */
-  --rotateY-step: 0deg; /* 각 아이템마다 감소할 rotateY 값 */
-}
-
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-.scene {
-  height: 100vh;
+.box-style {
   display: flex;
-  justify-content: center;
   align-items: center;
-  perspective: 2000px;
-}
-
-.carousel {
-  position: relative;
-  width: 500px;
-  height: 300px;
-
-  transform-style: preserve-3d;
-}
-
-.item {
-  /* 공통 스타일 */
-  position: absolute;
-  border: 1px solid black;
-  color: #fff;
-  font-size: 32px;
-  font-weight: 600;
-
-  /* 부드러운 전환 효과 추가 */
-  transition: all 0.3s ease;
+  justify-content: center;
+  transition: transform 0.5s ease-in-out;
 }

@@ -1,69 +1,78 @@
 import { useState } from 'react';
 
 function App() {
-  const [hoveredItemId, setHoveredItemId] = useState<null | number>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHoveredNextCard, setIsHoveredNextCard] = useState(false);
+
+  console.log(isHoveredNextCard);
 
   return (
-    <div className="scene">
-      <div className="carousel">
-        {MockingItemData.map(({ id }, index) => {
-          const isHovered = hoveredItemId === id;
-          const topValue = isHovered
-            ? `${50 - 80 * index - 30}px`
-            : `${200 - 80 * index}px`;
-          const rotateYValue = `${20 - 5 * index}deg`;
-          const translateZValue = `${500 - 300 * index}px`;
+    <section>
+      <div></div>
+      <div className="absolute left-0 top-0 h-full w-full bg-yellow-500">
+        <div
+          className="absolute left-1/2 top-0 h-screen w-1/2 overflow-hidden"
+          style={{
+            transform: isHoveredNextCard
+              ? 'translate3d(0px, 0px, 0px) scale(0.16, 1.15)'
+              : 'translate3d(0px, 0px, 0px) scale(0, 1.15)',
+            touchAction: 'pan-y',
+            transition: 'transform 0.5s ease-in-out',
+            backgroundColor: 'red',
+          }}
+        >
+          <div
+            className="bg-red-500"
+            style={{
+              transform: 'translate3d(0px, 0px, 0px) scale(0, 1.15)',
+              touchAction: 'pan-y',
+            }}
+          />
+          <div className="bg-yellow-500" />
+        </div>
 
-          return (
-            <div
-              key={id}
-              className="item"
-              onMouseEnter={() => setHoveredItemId(id)}
-              onMouseLeave={() => setHoveredItemId(null)}
-              style={{
-                padding: '150px',
-                top: topValue,
-                backgroundColor: id % 2 === 0 ? '#ff7979' : '#bfa75b',
-                transform: `rotateY(${rotateYValue}) translateZ(${translateZValue})`,
-              }}
-            >
-              {id}
-            </div>
-          );
-        })}
+        <div className="absolute left-1/2 top-0 h-screen w-1/2 overflow-hidden">
+          <div></div>
+          <div></div>
+        </div>
       </div>
-    </div>
+      <button
+        onMouseEnter={() => setIsHoveredNextCard(true)}
+        onMouseLeave={() => setIsHoveredNextCard(false)}
+        style={{
+          width: 'calc(50% - 250px)',
+          paddingRight: '8%',
+        }}
+        className="absolute top-0 h-screen"
+      >
+        Next Card
+      </button>
+      <button
+        style={{
+          width: 'calc(50% - 250px)',
+          paddingLeft: '8%',
+          right: 0,
+        }}
+        className="absolute top-0 h-screen"
+        onMouseEnter={() => setIsHoveredNextCard(true)}
+        onMouseLeave={() => setIsHoveredNextCard(false)}
+      >
+        Show me!
+      </button>
+      <button>
+        <div
+          className="absolute"
+          style={{
+            left: 'calc(50% - 250px)',
+            top: 'calc(50% - 250px)',
+            height: '500px',
+            width: '500px',
+            backgroundColor: 'white',
+          }}
+        />
+      </button>
+    </section>
   );
 }
 
 export default App;
-
-const MockingItemData = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
-  {
-    id: 4,
-  },
-  {
-    id: 5,
-  },
-  {
-    id: 6,
-  },
-  {
-    id: 7,
-  },
-  {
-    id: 8,
-  },
-  {
-    id: 19,
-  },
-];
