@@ -1,15 +1,34 @@
 import { useState } from 'react';
 
 function App() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHoveredShowCard, setIsHoveredShowCard] = useState(false);
   const [isHoveredNextCard, setIsHoveredNextCard] = useState(false);
-
-  console.log(isHoveredNextCard);
 
   return (
     <section>
       <div></div>
       <div className="absolute left-0 top-0 h-full w-full bg-yellow-500">
+        <div
+          className="absolute right-1/2 top-0 h-screen w-1/2 overflow-hidden"
+          style={{
+            transform: isHoveredShowCard
+              ? 'translate3d(0px, 0px, 0px) scale(0.16, 1.15)'
+              : 'translate3d(0px, 0px, 0px) scale(0, 1.15)',
+            touchAction: 'pan-y',
+            transition: 'transform 0.5s ease-in-out',
+            backgroundColor: 'red',
+          }}
+        >
+          <div
+            className="bg-red-500"
+            style={{
+              transform: 'translate3d(0px, 0px, 0px) scale(0, 1.15)',
+              touchAction: 'pan-y',
+            }}
+          />
+          <div className="bg-yellow-500" />
+        </div>
+
         <div
           className="absolute left-1/2 top-0 h-screen w-1/2 overflow-hidden"
           style={{
@@ -30,15 +49,10 @@ function App() {
           />
           <div className="bg-yellow-500" />
         </div>
-
-        <div className="absolute left-1/2 top-0 h-screen w-1/2 overflow-hidden">
-          <div></div>
-          <div></div>
-        </div>
       </div>
       <button
-        onMouseEnter={() => setIsHoveredNextCard(true)}
-        onMouseLeave={() => setIsHoveredNextCard(false)}
+        onMouseEnter={() => setIsHoveredShowCard(true)}
+        onMouseLeave={() => setIsHoveredShowCard(false)}
         style={{
           width: 'calc(50% - 250px)',
           paddingRight: '8%',
@@ -47,6 +61,7 @@ function App() {
       >
         Next Card
       </button>
+
       <button
         style={{
           width: 'calc(50% - 250px)',
