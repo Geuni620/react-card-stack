@@ -21,26 +21,19 @@
   justify-content: center;
   align-items: center;
   perspective: 2000px;
-  overflow-y: auto;
 }
 
 .carousel {
-  width: 210px;
-  height: 150px;
   position: relative;
+  width: 500px;
+  height: 300px;
+
   transform-style: preserve-3d;
 }
 
 .item {
   /* 공통 스타일 */
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 150px;
-  height: 210px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border: 1px solid black;
   color: #fff;
   font-size: 32px;
@@ -49,61 +42,3 @@
   /* 부드러운 전환 효과 추가 */
   transition: all 0.3s ease;
 }
-
-/* .item:nth-child(1) {
-  top: 100px;
-  background-color: #ff7979;
-  transform: rotateY(calc(var(--base-rotateY)))
-    translateZ(calc(var(--base-translateZ)));
-}
-.item:nth-child(2) {
-  top: 80px;
-  background-color: #bfa75b;
-  transform: rotateY(calc(var(--base-rotateY) + var(--rotateY-step)))
-    translateZ(calc(var(--base-translateZ) - var(--translateZ-step)));
-}
-
-.item:nth-child(4) {
-  top: 60px;
-  background-color: #4d50ab;
-  transform: rotateY(calc(var(--base-rotateY) + var(--rotateY-step) * 2))
-    translateZ(calc(var(--base-translateZ) - var(--translateZ-step) * 2));
-}
-
-.item:nth-child(5) {
-  top: 40px;
-  background-color: #4000ab;
-  transform: rotateY(calc(var(--base-rotateY) + var(--rotateY-step) * 3))
-    translateZ(calc(var(--base-translateZ) - var(--translateZ-step) * 3));
-}
-.item:nth-child(6) {
-  top: 20px;
-  background-color: #4050ab;
-  transform: rotateY(calc(var(--base-rotateY) + var(--rotateY-step) * 4))
-    translateZ(calc(var(--base-translateZ) - var(--translateZ-step) * 4));
-}
-.item:nth-child(7) {
-  background-color: #4055ab;
-  transform: rotateY(calc(var(--base-rotateY) + var(--rotateY-step) * 5))
-    translateZ(calc(var(--base-translateZ) - var(--translateZ-step) * 5));
-}
-.item:nth-child(8) {
-  background-color: #4340ab;
-  transform: rotateY(calc(var(--base-rotateY) + var(--rotateY-step) * 6))
-    translateZ(calc(var(--base-translateZ) - var(--translateZ-step) * 6));
-}
-.item:nth-child(9) {
-  background-color: #2050ab;
-  transform: rotateY(calc(var(--base-rotateY) + var(--rotateY-step) * 7))
-    translateZ(calc(var(--base-translateZ) - var(--translateZ-step) * 7));
-}
-.item:nth-child(3) {
-  background-color: #1050ab;
-  transform: rotateY(calc(var(--base-rotateY) + var(--rotateY-step) * 8))
-    translateZ(calc(var(--base-translateZ) - var(--translateZ-step) * 8));
-}
-
-.item:hover {
-  transition: all 0.3s ease;
-  transform: rotateY(0deg) translateZ(attr(data-translatez px));
-} */

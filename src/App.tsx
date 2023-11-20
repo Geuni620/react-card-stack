@@ -16,10 +16,12 @@ function App() {
 
           return (
             <div
+              key={id}
               className="item"
               onMouseEnter={() => setHoveredItemId(id)}
               onMouseLeave={() => setHoveredItemId(null)}
               style={{
+                padding: '150px',
                 top: topValue,
                 backgroundColor: id % 2 === 0 ? '#ff7979' : '#bfa75b',
                 transform: `rotateY(${rotateYValue}) translateZ(${translateZValue})`,
