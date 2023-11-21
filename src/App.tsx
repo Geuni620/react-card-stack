@@ -1,40 +1,59 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
   const [isHoveredShowCard, setIsHoveredShowCard] = useState(false);
   const [isHoveredNextCard, setIsHoveredNextCard] = useState(false);
 
+  // const [isHoveredShowCard, setIsHoveredShowCard] = useState(false);
+  const [scale, setScale] = useState(0);
+
+  // const 증가값 영어로
+  const increaseValue = 0.005;
+
+  useEffect(() => {
+    let interval: any;
+    if (isHoveredShowCard) {
+      interval = setInterval(() => {
+        setScale((prevScale) =>
+          prevScale < 0.61 ? prevScale + increaseValue : 0.61,
+        );
+      }, 10); // 점진적으로 증가
+    } else {
+      interval = setInterval(() => {
+        setScale((prevScale) =>
+          prevScale > 0 ? prevScale - increaseValue : 0,
+        );
+      }, 10); // 점진적으로 감소
+    }
+    return () => clearInterval(interval);
+  }, [isHoveredShowCard]);
+
   return (
     <section>
       <div></div>
       <div className="absolute left-0 top-0 h-full w-full bg-yellow-500">
+        {/* 왼쪽만 */}
         <div
           className="absolute right-1/2 top-0 h-screen w-1/2 overflow-hidden"
           style={{
             transformOrigin: 'center top',
-            transform: isHoveredShowCard ? 'scale(1, 1.15)' : 'scale(0, 1.15)',
+            transform: `scale(${scale}, 1.15)`, // 여기에서 scale 상태 값을 사용
             touchAction: 'pan-y',
-            transition: 'transform 0.5s ease-in-out',
+            transition: 'transform 0.5s ease-in', // 애니메이션 속도 조절
             backgroundColor: 'red',
-            borderRadius: isHoveredShowCard
-              ? '50% 50% 0% 0% / 50% 50% 0% 0%'
-              : '50% 50% 50% 50% / 50% 50% 50% 50%', // 타원형에서 원 모양으로 변형
           }}
         >
           <div
             className="bg-red-500"
             style={{
               transformOrigin: 'center top',
-              transform: isHoveredShowCard
-                ? 'scale(0, 1.15)'
-                : 'scale(1, 1.15)',
               touchAction: 'pan-y',
             }}
           />
           <div className="bg-yellow-500" />
         </div>
 
-        <div
+        {/* <div
           className="absolute left-1/2 top-0 h-screen w-1/2 overflow-hidden"
           style={{
             transformOrigin: 'center top',
@@ -42,9 +61,6 @@ function App() {
             touchAction: 'pan-y',
             transition: 'transform 0.5s ease-in-out',
             backgroundColor: 'red',
-            borderRadius: isHoveredNextCard
-              ? '50% 50% 0% 0% / 50% 50% 0% 0%'
-              : '50% 50% 50% 50% / 50% 50% 50% 50%', // 타원형에서 원 모양으로 변형
           }}
         >
           <div
@@ -58,7 +74,7 @@ function App() {
             }}
           />
           <div className="bg-yellow-500" />
-        </div>
+        </div> */}
       </div>
       <button
         onMouseEnter={() => setIsHoveredShowCard(true)}
@@ -71,7 +87,6 @@ function App() {
       >
         Next Card
       </button>
-
       <button
         style={{
           width: 'calc(50% - 250px)',
