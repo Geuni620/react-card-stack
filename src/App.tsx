@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function App() {
   const [hoverState, setHoverState] = useState('none');
@@ -19,7 +19,7 @@ function App() {
     return () => clearInterval(interval);
   }, [targetScale]);
 
-  const leftStyle = {
+  const leftStyle: React.CSSProperties = {
     transformOrigin: 'right',
     transform: `scale(${hoverState === 'left' ? scale : 0}, 1.15)`,
     touchAction: 'pan-y',
@@ -34,7 +34,7 @@ function App() {
     overflow: 'hidden',
   };
 
-  const rightStyle = {
+  const rightStyle: React.CSSProperties = {
     transformOrigin: 'left',
     transform: `scale(${hoverState === 'right' ? scale : 0}, 1.15)`,
     touchAction: 'pan-y',
@@ -50,7 +50,7 @@ function App() {
     overflow: 'hidden',
   };
 
-  const centerDivStyle = {
+  const centerDivStyle: React.CSSProperties = {
     position: 'absolute',
     left: 'calc(50% - 250px)',
     top: 'calc(50% - 400px)',
