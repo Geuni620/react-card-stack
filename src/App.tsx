@@ -1,85 +1,102 @@
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [isHoveredShowCard, setIsHoveredShowCard] = useState(false);
-  const [isHoveredNextCard, setIsHoveredNextCard] = useState(false);
-
-  // const [isHoveredShowCard, setIsHoveredShowCard] = useState(false);
+  const [hoverState, setHoverState] = useState('none');
   const [scale, setScale] = useState(0);
 
-  // const 증가값 영어로
+  // 증가값 및 감소값
   const increaseValue = 0.5;
+  const targetScale = hoverState === 'none' ? 0 : 0.61; // 호버 상태에 따른 타겟 스케일
 
   useEffect(() => {
-    let interval: any;
-    if (isHoveredShowCard) {
-      interval = setInterval(() => {
-        setScale((prevScale) =>
-          prevScale < 0.61 ? prevScale + increaseValue : 0.61,
-        );
-      }, 10); // 점진적으로 증가
-    } else {
-      interval = setInterval(() => {
-        setScale((prevScale) =>
-          prevScale > 0 ? prevScale - increaseValue : 0,
-        );
-      }, 10); // 점진적으로 감소
-    }
+    const interval = setInterval(() => {
+      setScale((prevScale) =>
+        prevScale < targetScale
+          ? Math.min(prevScale + increaseValue, targetScale)
+          : Math.max(prevScale - increaseValue, targetScale),
+      );
+    }, 10); // 점진적으로 증가 또는 감소
     return () => clearInterval(interval);
-  }, [isHoveredShowCard]);
+  }, [targetScale]);
+
+  const leftStyle = {
+    transformOrigin: 'right',
+    transform: `scale(${hoverState === 'left' ? scale : 0}, 1.15)`,
+    touchAction: 'pan-y',
+    transition: 'transform 0.5s ease-out',
+    backgroundColor: 'red',
+    borderTopLeftRadius: '50%',
+    borderBottomLeftRadius: '50%',
+    position: 'absolute',
+    width: '50%',
+    top: 0,
+    height: '100vh',
+    overflow: 'hidden',
+  };
+
+  const rightStyle = {
+    transformOrigin: 'left',
+    transform: `scale(${hoverState === 'right' ? scale : 0}, 1.15)`,
+    touchAction: 'pan-y',
+    transition: 'transform 0.5s ease-out',
+    backgroundColor: 'blue', // 색상 변경 가능
+    borderTopRightRadius: '50%',
+    borderBottomRightRadius: '50%',
+    position: 'absolute',
+    width: '50%',
+    right: 0,
+    top: 0,
+    height: '100vh',
+    overflow: 'hidden',
+  };
+
+  const centerDivStyle = {
+    position: 'absolute',
+    left: 'calc(50% - 250px)',
+    top: 'calc(50% - 250px)',
+    height: '500px',
+    width: '500px',
+    backgroundColor: 'white',
+    transform:
+      hoverState === 'left'
+        ? 'rotateY(30deg) translateX(-80%)'
+        : hoverState === 'right'
+        ? 'rotateY(-30deg) translateX(80%)' // 오른쪽으로 회전 및 이동
+        : 'rotateY(0deg) translateX(0)',
+    transition: 'transform 0.6s ease-out',
+    transformStyle: 'preserve-3d',
+  };
 
   return (
     <section>
       <div></div>
       <div className="absolute left-0 top-0 h-full w-full bg-yellow-500">
         {/* 왼쪽만 */}
-        <div
-          className="absolute right-1/2 top-0 h-screen w-1/2 overflow-hidden"
-          style={{
-            transformOrigin: 'right',
-            transform: `scale(${scale}, 1.15)`, // 여기에서 scale 상태 값을 사용
-            touchAction: 'pan-y',
-            transition: 'transform 0.5s ease-out', // 애니메이션 속도 조절
-            backgroundColor: 'red',
-            borderTopLeftRadius: '50%', // 오른쪽 상단
-            borderBottomLeftRadius: '50%', // 오른쪽 하단
-          }}
-        >
-          <div
-            className="bg-red-500"
-            style={{
-              transformOrigin: 'center top',
-              touchAction: 'pan-y',
-            }}
-          />
+        <div>
+          <div style={leftStyle}></div>
           <div className="bg-yellow-500" />
         </div>
+        {/* 왼쪽 */}
+        <button
+          style={{
+            width: 'calc(50% - 250px)',
+            paddingRight: '8%',
+          }}
+          className="absolute top-0 h-screen"
+          onMouseEnter={() => setHoverState('left')}
+          onMouseLeave={() => setHoverState('none')}
+        >
+          Next Card
+        </button>
 
-        <div className="absolute left-1/2 top-0 h-screen w-1/2 overflow-hidden">
-          <div
-            className="bg-red-500"
-            style={{
-              transformOrigin: 'center top',
-              transform: isHoveredNextCard
-                ? 'scale(0, 1.15)'
-                : 'scale(1, 1.15)',
-              touchAction: 'pan-y',
-            }}
-          />
+        {/* 오른쪽만 */}
+        <div>
+          <div style={rightStyle} />
           <div className="bg-yellow-500" />
         </div>
       </div>
-      <button
-        onMouseEnter={() => setIsHoveredShowCard(true)}
-        onMouseLeave={() => setIsHoveredShowCard(false)}
-        style={{
-          width: 'calc(50% - 250px)',
-          paddingRight: '8%',
-        }}
-        className="absolute top-0 h-screen"
-      >
-        Next Card
-      </button>
+
+      {/* 오른쪽 */}
       <button
         style={{
           width: 'calc(50% - 250px)',
@@ -87,41 +104,13 @@ function App() {
           right: 0,
         }}
         className="absolute top-0 h-screen"
-        onMouseEnter={() => setIsHoveredNextCard(true)}
-        onMouseLeave={() => setIsHoveredNextCard(false)}
+        onMouseEnter={() => setHoverState('right')}
+        onMouseLeave={() => setHoverState('none')}
       >
         Show me!
       </button>
-      {/* <button>
-        <div
-          className="absolute"
-          style={{
-            left: 'calc(50% - 250px)',
-            top: 'calc(50% - 250px)',
-            height: '500px',
-            width: '500px',
-            backgroundColor: 'white',
-          }}
-        />
-      </button> */}
       <button>
-        <div
-          className="absolute"
-          style={{
-            left: 'calc(50% - 250px)',
-            top: 'calc(50% - 250px)',
-            height: '500px',
-            width: '500px',
-            backgroundColor: 'white',
-            transform: isHoveredShowCard
-              ? 'rotateY(30deg) translateX(-80%)'
-              : 'rotateY(0deg) translateX(0)',
-            transition: 'transform 0.6s ease-out',
-            transformStyle: 'preserve-3d', // 3D 변형 스타일 유지
-          }}
-        >
-          여기 내용내용내용내용
-        </div>
+        <div style={centerDivStyle}>여기 내용내용내용내용</div>
       </button>
     </section>
   );
