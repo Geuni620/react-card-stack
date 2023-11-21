@@ -8,7 +8,7 @@ function App() {
   const [scale, setScale] = useState(0);
 
   // const 증가값 영어로
-  const increaseValue = 0.005;
+  const increaseValue = 0.5;
 
   useEffect(() => {
     let interval: any;
@@ -36,11 +36,13 @@ function App() {
         <div
           className="absolute right-1/2 top-0 h-screen w-1/2 overflow-hidden"
           style={{
-            transformOrigin: 'center top',
+            transformOrigin: 'right',
             transform: `scale(${scale}, 1.15)`, // 여기에서 scale 상태 값을 사용
             touchAction: 'pan-y',
             transition: 'transform 0.5s ease-in', // 애니메이션 속도 조절
             backgroundColor: 'red',
+            borderTopLeftRadius: '50%', // 오른쪽 상단
+            borderBottomLeftRadius: '50%', // 오른쪽 하단
           }}
         >
           <div
