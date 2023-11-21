@@ -39,7 +39,7 @@ function App() {
     transform: `scale(${hoverState === 'right' ? scale : 0}, 1.15)`,
     touchAction: 'pan-y',
     transition: 'transform 0.5s ease-out',
-    backgroundColor: 'blue', // 색상 변경 가능
+    backgroundColor: 'blue',
     borderTopRightRadius: '50%',
     borderBottomRightRadius: '50%',
     position: 'absolute',
@@ -53,15 +53,16 @@ function App() {
   const centerDivStyle = {
     position: 'absolute',
     left: 'calc(50% - 250px)',
-    top: 'calc(50% - 250px)',
-    height: '500px',
+    top: 'calc(50% - 400px)',
+    borderRadius: '20px',
+    height: '800px',
     width: '500px',
     backgroundColor: 'white',
     transform:
       hoverState === 'left'
         ? 'rotateY(30deg) translateX(-80%)'
         : hoverState === 'right'
-        ? 'rotateY(-30deg) translateX(80%)' // 오른쪽으로 회전 및 이동
+        ? 'rotateY(-30deg) translateX(80%)'
         : 'rotateY(0deg) translateX(0)',
     transition: 'transform 0.6s ease-out',
     transformStyle: 'preserve-3d',
@@ -82,7 +83,7 @@ function App() {
             width: 'calc(50% - 250px)',
             paddingRight: '8%',
           }}
-          className="absolute top-0 h-screen"
+          className="absolute top-0 z-[20] h-screen"
           onMouseEnter={() => setHoverState('left')}
           onMouseLeave={() => setHoverState('none')}
         >
@@ -94,21 +95,22 @@ function App() {
           <div style={rightStyle} />
           <div className="bg-yellow-500" />
         </div>
+        <button
+          style={{
+            width: 'calc(50% - 250px)',
+            paddingLeft: '8%',
+            right: 0,
+          }}
+          className="absolute top-0 z-[20] h-screen"
+          onMouseEnter={() => setHoverState('right')}
+          onMouseLeave={() => setHoverState('none')}
+        >
+          Show me!
+        </button>
       </div>
 
       {/* 오른쪽 */}
-      <button
-        style={{
-          width: 'calc(50% - 250px)',
-          paddingLeft: '8%',
-          right: 0,
-        }}
-        className="absolute top-0 h-screen"
-        onMouseEnter={() => setHoverState('right')}
-        onMouseLeave={() => setHoverState('none')}
-      >
-        Show me!
-      </button>
+
       <button>
         <div style={centerDivStyle}>여기 내용내용내용내용</div>
       </button>
