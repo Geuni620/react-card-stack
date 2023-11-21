@@ -39,7 +39,7 @@ function App() {
             transformOrigin: 'right',
             transform: `scale(${scale}, 1.15)`, // 여기에서 scale 상태 값을 사용
             touchAction: 'pan-y',
-            transition: 'transform 0.5s ease-in', // 애니메이션 속도 조절
+            transition: 'transform 0.5s ease-out', // 애니메이션 속도 조절
             backgroundColor: 'red',
             borderTopLeftRadius: '50%', // 오른쪽 상단
             borderBottomLeftRadius: '50%', // 오른쪽 하단
@@ -55,16 +55,7 @@ function App() {
           <div className="bg-yellow-500" />
         </div>
 
-        {/* <div
-          className="absolute left-1/2 top-0 h-screen w-1/2 overflow-hidden"
-          style={{
-            transformOrigin: 'center top',
-            transform: isHoveredNextCard ? 'scale(1, 1.15)' : 'scale(0, 1.15)',
-            touchAction: 'pan-y',
-            transition: 'transform 0.5s ease-in-out',
-            backgroundColor: 'red',
-          }}
-        >
+        <div className="absolute left-1/2 top-0 h-screen w-1/2 overflow-hidden">
           <div
             className="bg-red-500"
             style={{
@@ -76,7 +67,7 @@ function App() {
             }}
           />
           <div className="bg-yellow-500" />
-        </div> */}
+        </div>
       </div>
       <button
         onMouseEnter={() => setIsHoveredShowCard(true)}
@@ -101,7 +92,7 @@ function App() {
       >
         Show me!
       </button>
-      <button>
+      {/* <button>
         <div
           className="absolute"
           style={{
@@ -112,6 +103,25 @@ function App() {
             backgroundColor: 'white',
           }}
         />
+      </button> */}
+      <button>
+        <div
+          className="absolute"
+          style={{
+            left: 'calc(50% - 250px)',
+            top: 'calc(50% - 250px)',
+            height: '500px',
+            width: '500px',
+            backgroundColor: 'white',
+            transform: isHoveredShowCard
+              ? 'rotateY(30deg) translateX(-80%)'
+              : 'rotateY(0deg) translateX(0)',
+            transition: 'transform 0.6s ease-out',
+            transformStyle: 'preserve-3d', // 3D 변형 스타일 유지
+          }}
+        >
+          여기 내용내용내용내용
+        </div>
       </button>
     </section>
   );
